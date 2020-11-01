@@ -1,0 +1,65 @@
+{% extends 'home.html' %}
+
+{% load static %}
+<!-- Page Content-->
+<div class="container-fluid p-0">
+    {% block perfil %}
+        <!-- About-->
+    <section class="resume-section" id="about">
+        <div class="resume-section-content">
+            <h1 class="mb-0">
+                {{ contact.first_name }}
+                <span class="text-primary">{{ contact.last_name }}</span>
+            </h1>
+            <div class="subheading mb-5">
+                {{ contact.address }} ·
+                <a href="mailto:name@email.com">{{ contact.email }}</a>
+            </div>
+            <p class="lead mb-5">{{ contact.about }}</p>
+            <div class="social-icons">
+                <a class="social-icon" href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a class="social-icon" href="#"><i class="fab fa-github"></i></a>
+                <a class="social-icon" href="#"><i class="fab fa-twitter"></i></a>
+                <a class="social-icon" href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+        <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+            <div class="flex-grow-1">
+                <h3 class="mb-0">Contatos</h3>
+                {% if contact in user.contacted.all or contact == user %}
+                    {% for ctt in contacts %}
+                    <a href="{% url 'perfil:contact' ctt.username %}"><h4>{{ ctt.username }}</h4></a>
+                    {% endfor %}
+                {% else %}
+                <a href="{% url 'perfil:invite' contact %}">Invite</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <hr class="m-0" />
+    {% endblock %}
+    <!-- Experience-->
+    {% block posts %}
+    <section class="resume-section" id="experience">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Posts</h2>
+            <form action="{% url 'timeline:post' %}">
+                {% csrf_token %}
+                {{ new_post.text }}<br/>
+                <input type="submit" class="fadeIn fourth" value="Post">
+            </form>
+            {% for post in contact.posts.all reversed %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <h3 class="mb-0">{{post.creator.get_full_name}}</h3>
+                    <p>{{post.text}}</p>
+                </div>
+                <div class="flex-shrink-0"><span class="text-primary">{{ post.date }}</span></div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <hr class="m-0" />
+    {% endblock %}
+    </section>
+</div>

@@ -1,0 +1,55 @@
+{% extends 'registration/login.html' %}
+
+{% load static %}
+{% block title %}
+<title>LogIn</title>
+{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block navFooter%}
+<a class="navbar-brand" href="{% url 'login' %}">Back to Login</a>
+{% endblock %}
+
+{% block custom_js %}
+<link href="{% static 'css/login.css' %}" rel="stylesheet" id="bootstrap-css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+{% endblock %}
+
+{% block perfil %}
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+
+    <!-- Login Form -->
+    <form action="{% url 'perfil:register' %}" class="form-signin" role="form" method="post">
+
+        {% csrf_token %}
+        <label for='username'>Username:</label><br/>
+        {{ form.username }}<br/>
+        <label for='phone'>Phone:</label><br/>
+        {{ form.phone }}<br/>
+        <label for='first_name'>First Name:</label><br/>
+        {{ form.first_name }}<br/>
+        <label for='last_name'>Last Name:</label><br/>
+        {{ form.last_name }}<br/>
+        <label for='email'>Email:</label><br/>
+        {{ form.email }}<br/>
+        {{ form.email.errors }}<br/>
+        <label for='password'>Password:</label><br/>
+        {{ form.password }}<br/>
+        <input type="submit" class="fadeIn fourth" value="Log In">
+        <input type="hidden" name="next" value="{{ next }}">
+      <!-- <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+       -->
+    </form>
+    <!-- Remind Passowrd -->
+
+  </div>
+  {{ form.errors }}
+</div>
+{% endblock %}

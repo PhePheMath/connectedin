@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block perfil %}{% endblock %}
+{% block posts %}
+    <section class="resume-section" id="experience">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Posts</h2>
+            <form action="{% url 'timeline:post' %}">
+                {% csrf_token %}
+                {{ new_post.text }}<br/>
+                <input type="submit" class="fadeIn fourth" value="Post">
+            </form>
+            {% for post in posts reversed %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <h3 class="mb-0">{{post.creator.get_full_name}}</h3>
+                    <p>{{post.text}}</p>
+                </div>
+                <div class="flex-shrink-0"><span class="text-primary">{{ post.date }}</span></div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <hr class="m-0" />
+{% endblock %}

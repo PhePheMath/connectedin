@@ -163,6 +163,7 @@ a {
   text-decoration: none;
   background-color: transparent;
 }
+
 a:hover {
   color: #824027;
   text-decoration: underline;
@@ -296,6 +297,8 @@ input[type=checkbox] {
 textarea {
   overflow: auto;
   resize: vertical;
+  width: 100%;
+  max-width: 100%;
 }
 
 fieldset {
@@ -4007,6 +4010,11 @@ input[type=button].btn-block {
 }
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
+}
+
+#sideNav > h4 > a:nth-child(2),
+#sideNav > div.navbar-brand > a {
+  color: #fff;
 }
 
 .navbar-nav {
